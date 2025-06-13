@@ -1,8 +1,37 @@
-# is_venv_active.py
-import sys
-import os
+class Animal :
+    def __init__(self , breed):
+        self.breed = breed
 
-print("Virtual Env Active? ", sys.prefix != sys.base_prefix)
-print("Current Prefix: ", sys.prefix)
-print("Base Prefix: ", sys.base_prefix)
-print("VIRTUAL_ENV:", os.getenv("VIRTUAL_ENV"))
+    def canWalk(self) :
+        return f"{self.breed} can walk"
+    
+    def sound(self):
+        pass
+    
+class Dog(Animal):
+    def __init__(self , name , Petbreed) :
+        super().__init__(Petbreed)
+        self.breed = Petbreed
+        self.dogName = name
+
+    def sound(self ):
+        return f"{self.dogName} says woof"
+    
+
+myDog = Dog("Max" , "Dog")
+
+print(myDog.canWalk())
+print(myDog.sound())
+
+
+
+
+
+
+
+
+    
+
+        
+
+
