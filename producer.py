@@ -27,11 +27,11 @@ if __name__ == "__main__":
     admin.create_topic(topic)
     produceMsg =  ProducerClass(bootstrap_server , topic)
 
-    while True:
-        try:
+    try:
+        while True:
             message = input("Enter your message : ")
             produceMsg.sendMessage(message)
-        except KeyboardInterrupt:
-            pass
+    except KeyboardInterrupt:
+        pass
     
     produceMsg.commit()

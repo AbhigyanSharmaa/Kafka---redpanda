@@ -20,7 +20,7 @@ class Admin:
             
             print(f"Topic - {topic} has been created")
         else:
-            print("Topic - {topic} already exists")
+            print(f"Topic - {topic} already exists")
             
 
     
