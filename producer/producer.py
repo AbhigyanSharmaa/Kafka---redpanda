@@ -1,5 +1,5 @@
 from confluent_kafka import Producer #Import Producer from Confluent_kafka module
-from Admin_createTopic import Admin #import Admin class from Admin_createTopic
+from Admin.Admin_createTopic import Admin #import Admin class from Admin_createTopic
 
 class ProducerClass: # create ProducerClass to invoke producer and send messages
 
