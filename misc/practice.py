@@ -28,12 +28,12 @@
 
 
 
-l = ("Abc" , "a")
-b = ("cvd" ,"f")
+s = "ab"
 
-b = [l] + [b]
-
-print(b)
+if s :
+    print("yes")
+else:
+    print("No")
 
     
 

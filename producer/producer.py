@@ -1,4 +1,7 @@
 from confluent_kafka import Producer #Import Producer from Confluent_kafka module
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Admin.Admin_createTopic import Admin #import Admin class from Admin_createTopic
 
 class ProducerClass: # create ProducerClass to invoke producer and send messages
@@ -34,5 +37,5 @@ if __name__ == "__main__":
             produceMsg.sendMessage(message) # send the message 
     except KeyboardInterrupt:
         pass #Interrupt the console by keyboard to break this code
-    
+
     produceMsg.commit() # call commit method to flush all of the messages
