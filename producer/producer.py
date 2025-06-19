@@ -1,8 +1,10 @@
+from typing import cast
 from confluent_kafka import Producer #Import Producer from Confluent_kafka module
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Admin.Admin_createTopic import Admin #import Admin class from Admin_createTopic
+from datetime import datetime
 
 class ProducerClass: # create ProducerClass to invoke producer and send messages
 
@@ -27,6 +29,7 @@ if __name__ == "__main__":
     topic = "test-topic" #define topic name
     
     admin = Admin(bootstrap_server) # create an admin class object and pass bootstrap_server , checkout Admin_createTopic to know more about admin class
+    allTopicKeys = [admin.allTopics()  ]
     admin.create_topic(topic) #create topic using admin obj
     produceMsg =  ProducerClass(bootstrap_server , topic) # create an obj produceMsg of Producer class and pass bootstrap server and topic details
 
@@ -34,6 +37,8 @@ if __name__ == "__main__":
     try:
         while True: 
             message = input("Enter your message : ")
+            time = datetime.now().isoformat()
+            message = f"{message} | {time}"
             produceMsg.sendMessage(message) # send the message 
     except KeyboardInterrupt:
         pass #Interrupt the console by keyboard to break this code

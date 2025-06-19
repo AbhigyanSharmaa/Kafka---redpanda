@@ -24,16 +24,10 @@
 # print(myDog.sound())
 
 
+from datetime import datetime 
+time = datetime.now().isoformat()
 
 
-
-
-s = "ab"
-
-if s :
-    print("yes")
-else:
-    print("No")
 
     
 

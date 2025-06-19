@@ -10,6 +10,8 @@ class Admin:
         all_topics = self.admin.list_topics() # we can get the topics details by using admin.list_topics , we will get a dictionary
         return topic in all_topics.topics.keys() # check if topic exists in all_topics.keys()
     
+    def allTopics(self): # method to return all topic details
+        return self.admin.list_topics().topics.keys()
 
 
 
@@ -21,6 +23,7 @@ class Admin:
             print(f"Topic - {topic} has been created") 
         else:
             print(f"Topic - {topic} already exists")
+    
     
 
             
