@@ -27,7 +27,11 @@
 from datetime import datetime 
 time = datetime.now().isoformat()
 
+di = [1,2,4,4,5,5]
 
+msg = lambda x : [y*2 for y in di]
+
+print(msg(di))
 
     
 
