@@ -13,7 +13,6 @@ class schemaRegistryClass :
     def checkSchema(self):
         try:
             if self.schema_client.get_latest_version(self.subject_name) :
-                print(self.schema_client.get_latest_version("mytopic"))
                 return True
         except SchemaRegistryError:
                 
@@ -26,7 +25,7 @@ class schemaRegistryClass :
             try:
                 schema = Schema(self.schema_str , self.schema_type)
                 self.schema_client.register_schema(self.subject_name , schema)
-                print(f"schema registry is registered successfully")
+                print(f"schema registry is registered successfully for subject/topic : {self.subject_name}")
             except SchemaRegistryError as e:
                 print(e)
          else :

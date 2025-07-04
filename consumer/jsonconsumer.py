@@ -20,7 +20,9 @@ class ConsumerClass :
                     print(f"error while consuming the message : {msg.error()}")
                     continue
                 msg_dict = json.loads(msg.value().decode('utf-8'))
-                print(f"message consumemd : {msg_dict} , type : {type(msg_dict)}")
+                print(f"message consumemd ;")
+                for key , value in msg_dict.items():
+                    print(f"{key} : {value}" , end="\n")
         except KeyboardInterrupt:
             pass
         finally:
