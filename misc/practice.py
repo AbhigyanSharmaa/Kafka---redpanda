@@ -27,11 +27,22 @@
 from datetime import datetime 
 time = datetime.now().isoformat()
 
+import asyncio
+
 di = [1,2,4,4,5,5]
 
 msg = lambda x : [y*2 for y in di]
 
-print(msg(di))
+
+async def func():
+    print("start")
+    await asyncio.sleep(5)
+    print("end")
+
+def func1():
+    print("this is a func")
+asyncio.run(func())
+func1()
 
     
 

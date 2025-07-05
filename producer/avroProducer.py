@@ -26,7 +26,14 @@ class userDetails:
     def toDict(self):
         return {"first_name" : self.first_name , "last_name" : self.last_name , "age" : self.age , "email" : self.email , "time" : self.time}
 
-             
+    #creating deliver_report function
+
+def delivery_report(err , msg):
+    if err is not None:
+        print(f"Failed to deliver message for key : {msg.key()}")
+    else:
+        print(f"successfully delivered the message.\n Key : {str(msg.key())} , topic : {msg.topic()} , partition : {msg.partition()} , offset : {msg.offset()}")
+
 
 class avroProducerClass(ProducerClass): # create ProducerClass to invoke producer and send messages
 
@@ -41,8 +48,8 @@ class avroProducerClass(ProducerClass): # create ProducerClass to invoke produce
  
             
             avro_serialized_msg = self.value_serializer(message , SerializationContext(self.topic , MessageField.VALUE))
-            self.producer.produce(topic =self.topic , key = str(uuid.uuid4()) , value = avro_serialized_msg , headers = {"correlation_id" : str(uuid.uuid4())}) # use produce method from producer obj and pass topic name and message
-            print(f"message sent : {avro_serialized_msg}")
+            self.producer.produce(topic =self.topic , key = str(uuid.uuid4()) , value = avro_serialized_msg , headers = {"correlation_id" : str(uuid.uuid4())} , on_delivery = delivery_report) # use produce method from producer obj and pass topic name and message
+            # print(f"message sent : {avro_serialized_msg}")
         except Exception as e:
             print(e)
 
