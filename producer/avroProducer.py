@@ -10,7 +10,7 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from schema_registry.schema_client_registry import schemaRegistryClass 
 from confluent_kafka.serialization import SerializationContext , MessageField
-
+import uuid
 
 
 
@@ -41,7 +41,7 @@ class avroProducerClass(ProducerClass): # create ProducerClass to invoke produce
  
             
             avro_serialized_msg = self.value_serializer(message , SerializationContext(self.topic , MessageField.VALUE))
-            self.producer.produce(self.topic , avro_serialized_msg) # use produce method from producer obj and pass topic name and message
+            self.producer.produce(topic =self.topic , key = str(uuid.uuid4()) , value = avro_serialized_msg , headers = {"correlation_id" : str(uuid.uuid4())}) # use produce method from producer obj and pass topic name and message
             print(f"message sent : {avro_serialized_msg}")
         except Exception as e:
             print(e)
@@ -67,9 +67,15 @@ if __name__ == "__main__":
     #register schema
     schemaClient = schemaRegistryClass(schema_url , topic , schema_str , schema_type )
     schemaClient.register_schema()
+
+    # get schema from schema registry
+    schema_str = schemaClient.get_schema_str()
+
+    #producing the message
     produceMsg =  avroProducerClass(bootstrap_server , topic , schemaClient.schema_client , schema_str) # create an obj produceMsg of Producer class and pass bootstrap server and topic details
     # print(f"the schema is : {schemaClient.schema_client.get_latest_version(topic)}")
 
+    
     try:
         while True: 
             first_name = input("Enter your first name : ")

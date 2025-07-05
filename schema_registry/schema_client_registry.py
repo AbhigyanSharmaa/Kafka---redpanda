@@ -10,17 +10,25 @@ class schemaRegistryClass :
         self.schema_type = schema_type
         self.schema_client = SchemaRegistryClient({"url" : self.schema_url})
 
-    def checkSchema(self):
+    def get_schema_version(self):
         try:
-            if self.schema_client.get_latest_version(self.subject_name) :
-                return True
+            schema_version = self.schema_client.get_latest_version(self.subject_name)
+            return schema_version.schema_id
         except SchemaRegistryError:
                 
                 return False
+    
+    def get_schema_str(self):
+        try :
+            schema_id = self.get_schema_version()
+            schema  = self.schema_client.get_schema(schema_id=schema_id)
+            return schema.schema_str
+        except SchemaRegistryError as e:
+            print(e)
         
     def register_schema(self):
          
-         if not self.checkSchema():
+         if not self.get_schema_version():
 
             try:
                 schema = Schema(self.schema_str , self.schema_type)
@@ -45,5 +53,6 @@ if __name__ == "__main__":
     client = schemaRegistryClass(schema_url , topic_name , schema_str , schema_type)
 
     client.register_schema()
+    print(f"schema string is : {client.get_schema_str()}")
 
 
